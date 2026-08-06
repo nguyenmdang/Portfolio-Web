@@ -3127,49 +3127,157 @@ body.loaded .page-transition {
         display: none;
     }
 }
-/* Hide default cursor */
-body{
-    cursor:none;
-}
+/* ================================
+   SHARK CURSOR
+================================ */
 
+body,
 a,
 button,
 input,
 textarea,
-select{
-    cursor:none;
+select {
+    cursor: none;
 }
 
-.cursor-dot{
+/* Container cá mập */
+#shark-cursor {
+    position: fixed;
+    width: 90px;
+    height: 45px;
+    pointer-events: none;
+    z-index: 999999;
+    left: 0;
+    top: 0;
+    transform: translate3d(-50%, -50%, 0);
+    will-change: transform;
+    filter:
+        drop-shadow(0 0 8px rgba(79,195,247,.8))
+        drop-shadow(0 0 20px rgba(41,182,246,.5));
+}
+
+
+/* SVG cá mập */
+#shark-cursor svg {
+    width:100%;
+    height:100%;
+    overflow:visible;
+}
+
+
+/* Cá mập bơi */
+#shark-body {
+    transform-origin:center;
+}
+
+
+/* Đuôi lắc */
+#tail {
+    transform-origin:92px 30px;
+    animation: sharkTail 0.55s ease-in-out infinite alternate;
+}
+
+
+/* Bong bóng */
+.shark-bubble {
+    position:fixed;
     width:8px;
     height:8px;
-    background:#00d9ff;
-    position:fixed;
     border-radius:50%;
+    border:1px solid rgba(255,255,255,.6);
     pointer-events:none;
-    z-index:99999;
-    transform:translate(-50%,-50%);
-    box-shadow:0 0 12px #00d9ff;
+    z-index:999998;
+    animation: bubbleFloat 1.2s ease-out forwards;
 }
 
-.cursor-outline{
-    width:34px;
-    height:34px;
-    border:2px solid #00d9ff;
-    border-radius:50%;
+
+/* Click tạo sóng */
+.shark-ripple {
     position:fixed;
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    border:2px solid rgba(79,195,247,.7);
     pointer-events:none;
-    z-index:99998;
+    z-index:999997;
     transform:translate(-50%,-50%);
-    transition:
-        width .2s,
-        height .2s,
-        border-color .2s,
-        background .2s;
+    animation:rippleWave .7s ease-out forwards;
 }
 
-.cursor-hover{
-    width:60px !important;
-    height:60px !important;
-    background:rgba(0,217,255,.15);
+
+
+/* Hover */
+.shark-hover {
+    scale:1.25;
+    filter:
+        drop-shadow(0 0 15px #00e5ff)
+        drop-shadow(0 0 35px #00b8d4);
+}
+
+
+
+/* Animations */
+
+@keyframes sharkTail {
+
+    from {
+        transform:rotate(-12deg);
+    }
+
+    to {
+        transform:rotate(12deg);
+    }
+
+}
+
+
+@keyframes bubbleFloat {
+
+    0% {
+        opacity:.8;
+        transform:
+        translateY(0)
+        scale(1);
+    }
+
+    100% {
+        opacity:0;
+        transform:
+        translateY(-70px)
+        scale(.3);
+    }
+
+}
+
+
+@keyframes rippleWave {
+
+    0% {
+        opacity:1;
+        width:20px;
+        height:20px;
+    }
+
+    100% {
+        opacity:0;
+        width:120px;
+        height:120px;
+    }
+
+}
+
+
+/* Thiết bị cảm ứng không dùng cursor */
+@media (hover:none) {
+
+    #shark-cursor {
+        display:none;
+    }
+
+    body,
+    a,
+    button {
+        cursor:auto;
+    }
+
 }

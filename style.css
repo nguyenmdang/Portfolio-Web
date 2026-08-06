@@ -3127,3 +3127,49 @@ body.loaded .page-transition {
         display: none;
     }
 }
+/* Hide default cursor */
+body{
+    cursor:none;
+}
+
+a,
+button,
+input,
+textarea,
+select{
+    cursor:none;
+}
+
+.cursor-dot{
+    width:8px;
+    height:8px;
+    background:#00d9ff;
+    position:fixed;
+    border-radius:50%;
+    pointer-events:none;
+    z-index:99999;
+    transform:translate(-50%,-50%);
+    box-shadow:0 0 12px #00d9ff;
+}
+
+.cursor-outline{
+    width:34px;
+    height:34px;
+    border:2px solid #00d9ff;
+    border-radius:50%;
+    position:fixed;
+    pointer-events:none;
+    z-index:99998;
+    transform:translate(-50%,-50%);
+    transition:
+        width .2s,
+        height .2s,
+        border-color .2s,
+        background .2s;
+}
+
+.cursor-hover{
+    width:60px !important;
+    height:60px !important;
+    background:rgba(0,217,255,.15);
+}

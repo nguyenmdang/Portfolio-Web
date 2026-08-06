@@ -990,4 +990,42 @@ function initExperienceCards() {
             });
     });
 }
+const dot = document.querySelector(".cursor-dot");
+const outline = document.querySelector(".cursor-outline");
 
+let mouseX = 0;
+let mouseY = 0;
+
+let outlineX = 0;
+let outlineY = 0;
+
+window.addEventListener("mousemove",(e)=>{
+    mouseX=e.clientX;
+    mouseY=e.clientY;
+
+    dot.style.left=mouseX+"px";
+    dot.style.top=mouseY+"px";
+});
+
+function animate(){
+
+    outlineX += (mouseX-outlineX)*0.18;
+    outlineY += (mouseY-outlineY)*0.18;
+
+    outline.style.left=outlineX+"px";
+    outline.style.top=outlineY+"px";
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+
+document.querySelectorAll("a,button,.btn").forEach(el=>{
+    el.addEventListener("mouseenter",()=>{
+        outline.classList.add("cursor-hover");
+    });
+
+    el.addEventListener("mouseleave",()=>{
+        outline.classList.remove("cursor-hover");
+    });
+});

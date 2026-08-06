@@ -1011,6 +1011,7 @@ function initExperienceCards() {
     let lastY = mouseY;
 
     let angle = 0;
+    let targetAngle = 0;
 
 
     // Theo dõi chuột
@@ -1028,8 +1029,8 @@ function initExperienceCards() {
 
 
         // độ mượt (giảm = nặng hơn)
-        sharkX += (mouseX - sharkX) * 0.12;
-        sharkY += (mouseY - sharkY) * 0.12;
+        sharkX += (mouseX - sharkX) * 0.08;
+        sharkY += (mouseY - sharkY) * 0.08;
 
 
 
@@ -1038,23 +1039,36 @@ function initExperienceCards() {
         const dy = mouseY - lastY;
 
 
-        if(Math.abs(dx) > 1 || Math.abs(dy) > 1){
+if(Math.abs(dx) > 2 || Math.abs(dy) > 2){
 
-            angle = Math.atan2(dy, dx) * 180 / Math.PI;
+    targetAngle = Math.atan2(dy, dx) * 180 / Math.PI;
 
-        }
+}
 
 
-        shark.style.transform =
-        `
-        translate3d(
-            ${sharkX}px,
-            ${sharkY}px,
-            0
-        )
-        translate(-50%,-50%)
-        rotate(${angle + 180}deg)
-        `;
+// xoay mượt
+let diff = targetAngle - angle;
+
+
+// xử lý khi qua góc 180/-180
+if(diff > 180) diff -= 360;
+if(diff < -180) diff += 360;
+
+
+// tốc độ xoay
+angle += diff * 0.08;
+
+
+shark.style.transform =
+`
+translate3d(
+    ${sharkX}px,
+    ${sharkY}px,
+    0
+)
+translate(-50%,-50%)
+rotate(${angle + 180}deg)
+`;
 
 
         lastX = mouseX;

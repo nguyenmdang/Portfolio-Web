@@ -990,42 +990,197 @@ function initExperienceCards() {
             });
     });
 }
-const dot = document.querySelector(".cursor-dot");
-const outline = document.querySelector(".cursor-outline");
+// ============================================
+// SHARK CURSOR ANIMATION
+// ============================================
 
-let mouseX = 0;
-let mouseY = 0;
+(function initSharkCursor(){
 
-let outlineX = 0;
-let outlineY = 0;
+    const shark = document.getElementById("shark-cursor");
 
-window.addEventListener("mousemove",(e)=>{
-    mouseX=e.clientX;
-    mouseY=e.clientY;
+    if(!shark) return;
 
-    dot.style.left=mouseX+"px";
-    dot.style.top=mouseY+"px";
-});
 
-function animate(){
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
 
-    outlineX += (mouseX-outlineX)*0.18;
-    outlineY += (mouseY-outlineY)*0.18;
+    let sharkX = mouseX;
+    let sharkY = mouseY;
 
-    outline.style.left=outlineX+"px";
-    outline.style.top=outlineY+"px";
+    let lastX = mouseX;
+    let lastY = mouseY;
 
-    requestAnimationFrame(animate);
-}
+    let angle = 0;
 
-animate();
 
-document.querySelectorAll("a,button,.btn").forEach(el=>{
-    el.addEventListener("mouseenter",()=>{
-        outline.classList.add("cursor-hover");
+    // Theo dõi chuột
+    document.addEventListener("mousemove", e => {
+
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
     });
 
-    el.addEventListener("mouseleave",()=>{
-        outline.classList.remove("cursor-hover");
+
+
+    // Animation mượt
+    function animateShark(){
+
+
+        // độ mượt (giảm = nặng hơn)
+        sharkX += (mouseX - sharkX) * 0.12;
+        sharkY += (mouseY - sharkY) * 0.12;
+
+
+
+        // hướng bơi
+        const dx = mouseX - lastX;
+        const dy = mouseY - lastY;
+
+
+        if(Math.abs(dx) > 1 || Math.abs(dy) > 1){
+
+            angle = Math.atan2(dy, dx) * 180 / Math.PI;
+
+        }
+
+
+        shark.style.transform =
+        `
+        translate3d(
+            ${sharkX}px,
+            ${sharkY}px,
+            0
+        )
+        translate(-50%,-50%)
+        rotate(${angle}deg)
+        `;
+
+
+        lastX = mouseX;
+        lastY = mouseY;
+
+
+        requestAnimationFrame(animateShark);
+
+    }
+
+
+    animateShark();
+
+
+
+    // ======================
+    // Bubble Effect
+    // ======================
+
+    let bubbleTimer = 0;
+
+
+    function createBubble(){
+
+
+        if(!shark) return;
+
+
+        const bubble=document.createElement("div");
+
+        bubble.className="shark-bubble";
+
+
+        bubble.style.left =
+            (sharkX - 20 + Math.random()*20)+"px";
+
+
+        bubble.style.top =
+            (sharkY + 20)+"px";
+
+
+        document.body.appendChild(bubble);
+
+
+
+        setTimeout(()=>{
+
+            bubble.remove();
+
+        },1200);
+
+
+    }
+
+
+
+    setInterval(createBubble,500);
+
+
+
+
+
+    // ======================
+    // Click Splash
+    // ======================
+
+    document.addEventListener("click",e=>{
+
+
+        const ripple=document.createElement("div");
+
+
+        ripple.className="shark-ripple";
+
+
+        ripple.style.left=e.clientX+"px";
+        ripple.style.top=e.clientY+"px";
+
+
+        document.body.appendChild(ripple);
+
+
+        setTimeout(()=>{
+
+            ripple.remove();
+
+        },700);
+
+
     });
-});
+
+
+
+
+
+    // ======================
+    // Hover Effect
+    // ======================
+
+    const hoverElements =
+    document.querySelectorAll(
+        "a,button,.glass-card,input"
+    );
+
+
+    hoverElements.forEach(el=>{
+
+
+        el.addEventListener(
+            "mouseenter",
+            ()=>{
+                shark.classList.add("shark-hover");
+            }
+        );
+
+
+        el.addEventListener(
+            "mouseleave",
+            ()=>{
+                shark.classList.remove("shark-hover");
+            }
+        );
+
+
+    });
+
+
+
+})();

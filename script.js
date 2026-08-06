@@ -41,9 +41,9 @@ function initLoadingScreen() {
 
 // Fetch Discord profile once for loading screen, return parsed data
 function fetchDiscordProfileForLoading() {
-    const USER_ID = '1514899451016249467';
-    const LANYARD_API = `https://api.lanyard.rest/v1/users/1514899451016249467${USER_ID}`;
-    const DCDN_API = `https://dcdn.dstn.to/profile/1514899451016249467${USER_ID}`;
+    const USER_ID = '902868714490306570';
+    const LANYARD_API = `https://api.lanyard.rest/v1/users/902868714490306570${USER_ID}`;
+    const DCDN_API = `https://dcdn.dstn.to/profile/902868714490306570${USER_ID}`;
 
     function fetchWithTimeout(url, ms) {
         const controller = new AbortController();
@@ -436,9 +436,9 @@ function initMusicPlayer() {
     // Playlist bài hát (mặc định ưu tiên file local của mày trước, có thêm link online dự phòng)
     const playlist = [
         {
-            name: "Earrings",
-            artist: "Malcolm Todd",
-            src: "music/Earrings.mp3"
+            name: "Sơn Thủy Trùng Mây",
+            artist: "Jena ft. Anh Rồng",
+            src: "music/sonthuytrungmay.mp3"
         },
         {
             name: "Young Dumb & Broke",
@@ -566,7 +566,7 @@ function initMusicPlayer() {
 // ============================================
 
 function initDiscordProfile() {
-    const USER_ID = '1514899451016249467';
+    const USER_ID = '902868714490306570';
     const LANYARD_API = `https://api.lanyard.rest/v1/users/${USER_ID}`;
     const DCDN_API = `https://dcdn.dstn.to/profile/${USER_ID}`;
     const POLL_INTERVAL = 30000;

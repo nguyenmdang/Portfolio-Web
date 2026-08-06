@@ -1053,7 +1053,7 @@ function initExperienceCards() {
             0
         )
         translate(-50%,-50%)
-        rotate(${angle}deg)
+        rotate(${angle + 180}deg)
         `;
 
 
